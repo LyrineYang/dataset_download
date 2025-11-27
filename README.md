@@ -9,7 +9,7 @@
 
 快速使用
 1) 安装依赖：`pip install pandas huggingface_hub`
-2) 下载 3000 条（默认取 manifest 前 3000 条，可加 `--shuffle` 打乱后截取）：
+2) 下载 3000 条（默认取本目录的 `sampled_manifest.csv` 前 3000 条，可加 `--shuffle` 打乱后截取）：
    ```bash
    huggingface-cli login  # 如未登录
    python download_from_manifest.py -n 3000 --repo-id SpatialVID/SpatialVID-HQ --local-dir SpatialVID/spatialvid_data

@@ -24,8 +24,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--manifest",
         type=Path,
-        default=Path("SpatialVID/spatialvid_data/sampled_manifest.csv"),
-        help="Path to manifest CSV (must contain 'video path' and 'annotation path').",
+        default=Path("sampled_manifest.csv"),
+        help="Path to manifest CSV (must contain 'video path' and 'annotation path'). Defaults to local bundled file.",
     )
     p.add_argument(
         "-n",
