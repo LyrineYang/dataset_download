@@ -30,18 +30,18 @@
 - weather: Sunny 42.20%; Cloudy 26.38%; Unknown 15.47%; Rainy 9.43%; Snowy 5.52%; others ≪1%
 - crowdDensity: Deserted 50.94%; Sparse 28.13%; Moderate 10.91%; Crowded 7.87%; Unknown 2.15%
 
-## Sampling recipe (algorithm used) / 采样策略
-- Hard filters / 硬过滤：
+## Sampling recipe 采样策略
+- 过滤条件：
   - 时长 ≥ 3 秒
-  - 美学分按亮度分桶切底：Bright 去底部 5%，非 Bright 去底部 2%
-- Dynamics diversity / 动力学多样性：
-  - moveDist 分桶：S<0.5, M<3, L<8, XL≥8；rotAngle：S<0.5, M<1.5, L<3, XL≥3；trajTurns：0 / 1 / 2 / 3+；逆频率 (α=0.8) 做“部分均衡”。
-- Quality weights / 质量权重：
-  - motion score > 8.8 轻度降权；distLevel=0 轻度降权
+  - 美学分按亮度分桶过滤：Bright桶内 去美学分数底部 5%，非Bright桶内 去美学分数底部 2%
+- camera trajectory：
+  - moveDist 分桶：S<0.5, M<3, L<8, XL≥8；rotAngle：S<0.5, M<1.5, L<3, XL≥3；trajTurns：0 / 1 / 2 / 3+；逆频率 (α=0.8) 做均衡来diverse
+- 质量权重：
+  - motion score > 8.8 镜头太晃降权重；distLevel=0 镜头静止降权重
   - 美学分按 z-score 线性缩放，截断 [0.5, 1.5]
-- Diversity weights / 语义多样性权重：
+- 语义多样性权重：
   - brightness α=0.6，timeOfDay α=0.6，weather α=0.6，sceneType α=0.7，motionTags α=0.5；各自权重设上下限
-- Total weight / 合成权重：
+- 合成权重：
   - 先分别求 W_dyn=W_move×W_rot×W_turn、W_sem=亮度×时间×天气×scene×motionTags、W_qual=motion score×distLevel×美学；各自归一到均值=1，再相乘，最后截断 [0.05, 20]，无放回抽样（size=N）
 
 ## Duration
