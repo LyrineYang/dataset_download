@@ -32,3 +32,19 @@
 采样器要点
 - 硬过滤：时长 ≥3 秒；美学分按亮度分桶切底（Bright 去底 5%，非 Bright 去底 2%）。
 - 权重：动力学（moveDist/rotAngle/trajTurns，逆频率 α=0.8 部分均衡）、语义（亮度/时间/天气/scene/motionTags）与质量（motion score 轻降权高值、distLevel=0 轻降权、美学 z 缩放），各组均值归一后相乘，截断 [0.05,20]，无放回采样。
+
+数据落盘与一一对应关系
+- tar 包下载后保留在 `videos/group_xxxx.tar.gz`、`annotations/group_xxxx.tar.gz`。
+- 解压后：
+  - 视频：`videos/group_xxxx/<id>.mp4`
+  - 标注：`annotations/group_xxxx/<id>/...`（含 `reconstructions/poses.npy`）
+  - 动作：`annotations/group_xxxx/<id>/instructions.json`
+- 每个 `<id>.mp4` 与同 group 下的 `instructions.json` 一一对应，均按 manifest 中的 id 生成/解压。
+
+动作sample: {
+    "0->3": ["Dolly Forward", "Pan Right"],
+    "4->7": ["Tilt Up"],
+    "8->11": ["Stay"],
+    "12->15": ["Dolly Left", "Pan Left"],
+    "16->19": ["Zoom In"]
+  }
