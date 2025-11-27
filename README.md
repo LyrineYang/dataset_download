@@ -9,20 +9,20 @@
 
 快速使用
 1) 安装依赖：`pip install pandas huggingface_hub`
-2) 下载 3000 条（默认取本目录的 `sampled_manifest.csv` 前 3000 条，可加 `--shuffle` 打乱后截取）：
+2) 下载 30,000 条（默认取本目录的 `sampled_manifest.csv` 前 30k，可加 `--shuffle` 打乱后截取；如需更少，用 `-n` 覆盖）：
    ```bash
    huggingface-cli login  # 如未登录
-   python download_from_manifest.py -n 3000 --repo-id SpatialVID/SpatialVID-HQ --local-dir SpatialVID/spatialvid_data
+   python download_from_manifest.py -n 30000 --repo-id SpatialVID/SpatialVID-HQ --local-dir SpatialVID/spatialvid_data
    ```
    - 会下载对应组的 `videos/group_xxxx.tar.gz` 和 `annotations/group_xxxx.tar.gz`，仅解压 manifest 中需要的 mp4 和注释目录。
    - tar 包保留不删，可手动清理。
 3) 生成指令（interval=4）：
-   - 准备 CSV：用筛选后的 manifest（含 `id`、`moveDist` 等字段），记为 `filtered.csv`。
+   - CSV：直接用本目录的 `sampled_manifest.csv`（如需改名，先 `cp sampled_manifest.csv filtered.csv` 再指定）。
    - 确保每个 `id` 有 `${dir_path}/{id}/reconstructions/poses.npy`，已有非空 `instructions.json` 会被跳过；需重算先删。
    - 运行示例（已将脚本放在本目录）：
      ```bash
      python get_instructions_enhanced.py \
-       --csv_path filtered.csv \
+       --csv_path sampled_manifest.csv \
        --dir_path /path/to/data/root \
        --intervals 4 \
        --alphas 0.05
