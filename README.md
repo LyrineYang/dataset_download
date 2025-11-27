@@ -3,7 +3,7 @@
 包含内容（自足可上传）：
 - `sample_spatialvid_sampler.py`：加权采样器（时长 ≥3s，动力学/语义/质量分组归一后合成权重）。
 - `sampled_manifest.csv`：当前 30k 抽样结果。
-- `sampled_manifest_distribution.md`：分布报告与算法说明（中英双语）。
+- `sampled_manifest_distribution.md`：分布报告与算法说明。
 - `download_from_manifest.py`：根据 manifest 下载并只解压所需视频/标注。
 - `get_instructions_enhanced.py`：指令生成脚本（interval 可设 4）。
 
